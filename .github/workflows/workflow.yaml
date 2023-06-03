@@ -37,7 +37,7 @@ jobs:
       uses: actions/checkout@v3.3.0
     - name: Install Dependencies
       run: |
-        pip install -r requirements-dev.txt
+        pip install -r requirements.txt
     - name: Lint with Pylint
       run: |
         pylint --rcfile=.pylintrc src

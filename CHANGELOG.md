@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- First files to repository configuration (e.g. *.pylintrc*, *requirements.txt*)
+- First files to repository configuration (e.g. *.pylintrc*, *requirements.txt*, *workflow.yaml*)
 
 ### Changes
 
