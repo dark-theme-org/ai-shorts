@@ -4,7 +4,7 @@
 
 Project aimed at creating an **Automatic social media channel/page** based on fully *AI content* for image and audio, publishing **short videos** at least 1x/day.
 
-All the functionallity uses *Python* and the infrastructure with *Terraform*, deployed in *AWS* cloud service as an *AWS Lambda* function.
+All the functionallity uses [Python](https://www.python.org/) and the infrastructure with [Terraform](https://www.terraform.io/), deployed in [AWS](https://aws.amazon.com/pt/?nc2=h_lg) cloud service running an [AWS Lambda](https://aws.amazon.com/pt/lambda/?nc2=type_a) function.
 
 ## Cooperate
 

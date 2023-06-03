@@ -1,0 +1,43 @@
+name: AI Shorts - CI-CD Pipeline
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  push:
+    branches:
+      - develop
+      - main
+
+permissions: write-all
+
+env:
+  
+  PROJECT_NAME: "ai-shorts"
+  AWS_REGION: "us-east-1"
+
+jobs:
+
+  config:
+    runs-on: ubuntu-latest
+    steps:
+    - name: GitHub Actions Runner
+      uses: actions/checkout@v3.3.0
+    - name: Setup SSH
+      uses: MrSquaare/ssh-setup-action@v2
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: GitHub Actions Runner
+      uses: actions/checkout@v3.3.0
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements-dev.txt
+    - name: Lint with Pylint
+      run: |
+        pylint --rcfile=.pylintrc src
