@@ -24,6 +24,19 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## 0.0.2-dev-2023-06-13
+
+### Added
+
+- Code quality triggered
+- Development tools
+
+### Changes
+
+- Update markdowns, *workflow.yaml* and clean requirements.txt
+
+### Fixed
+
 ## 0.0.1-dev-2023-06-03
 
 ### Added
