@@ -40,9 +40,9 @@ jobs:
     - name: GitHub Actions Runner
       uses: actions/checkout@v3.3.0
     - name: Setup Python Version
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
     - name: Install Dependencies
       run: |
         pip install -r requirements-dev.txt
