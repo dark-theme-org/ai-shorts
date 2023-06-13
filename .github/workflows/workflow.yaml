@@ -48,5 +48,5 @@ jobs:
         pip install -r requirements-dev.txt
     - name: Lint with Pylint/Flake8
       run: |
-        pylint --rcfile .code_quality/.pylintrc src tests ${{ github.workspace }}
-        flake8 --config=.code_quality/.flake8 src tests ${{ github.workspace }}
+        pylint --rcfile .code_quality/.pylintrc src tests
+        flake8 --config=.code_quality/.flake8 src tests
