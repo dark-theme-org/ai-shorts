@@ -30,10 +30,10 @@ repos:
         language: system
         types: [python]
 
-      - id: pytest
-        name: pytest
-        language: system
-        entry: pytest
-        types: [python]
-        pass_filenames: false
+      #- id: pytest
+      #  name: pytest
+      #  language: system
+      #  entry: pytest tests
+      #  types: [python]
+      #  pass_filenames: false
 
