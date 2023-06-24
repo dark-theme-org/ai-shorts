@@ -74,9 +74,9 @@ class DriveAuth:
             logger.info(
                 f"[{__class__.__name__}] Succesfully created '{self.filename}' output!"
             )
-        except Exception as exc:
+        except Exception:
             logger.error(
-                f"[{__class__.__name__}] Could not create '{self.filename}' output!\n{exc}"
+                f"[{__class__.__name__}] Could not create '{self.filename}' output!"
             )
 
     def authenticate(self):
@@ -93,9 +93,9 @@ class DriveAuth:
                 f"[{__class__.__name__}] Succesfully authenticate to Google Drive: {drive_}"
             )
             return drive_
-        except Exception as exc:
+        except Exception:
             logger.error(
-                f"[{__class__.__name__}] Could not authenticate to Google Drive!\n{exc}"
+                f"[{__class__.__name__}] Could not authenticate to Google Drive!"
             )
             return None
 

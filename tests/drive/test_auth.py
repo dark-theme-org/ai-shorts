@@ -44,14 +44,9 @@ class TestDriveAuth(unittest.TestCase):
     def test_create_json_keyfile_exception(self, mock_logger_error):
         """Test 'create_json_keyfile' method raising exception"""
         self.drive_auth.create_json_keyfile()
-        # Create expected error message
-        specials = str('\\') * 2
-        error_msg = f"[Errno 2] No such file or directory:\
- 'random/output/path{specials}{self.drive_auth.filename}'"
-        self.env_mock.get_private_key.side_effect = Exception(error_msg)
         # Assert call
         mock_logger_error.assert_called_with(
-            f"[DriveAuth] Could not create '{self.drive_auth.filename}' output!\n{error_msg}"
+            f"[DriveAuth] Could not create '{self.drive_auth.filename}' output!"
         )
 
     # 2. authenticate
