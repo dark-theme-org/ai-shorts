@@ -45,8 +45,9 @@ class TestDriveAuth(unittest.TestCase):
         """Test 'create_json_keyfile' method raising exception"""
         self.drive_auth.create_json_keyfile()
         # Create expected error message
+        specials = str('\\') * 2
         error_msg = f"[Errno 2] No such file or directory:\
- 'random/output/path\\\\{self.drive_auth.filename}'"
+ 'random/output/path{specials}{self.drive_auth.filename}'"
         self.env_mock.get_private_key.side_effect = Exception(error_msg)
         # Assert call
         mock_logger_error.assert_called_with(
