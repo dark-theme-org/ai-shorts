@@ -8,7 +8,7 @@ from utils.environment import Environment
 
 # Declare some variables for this entrypoint
 PROJECT_PATH = os.path.dirname(os.getcwd())
-dotenv.load_dotenv(dotenv_path=os.path.join(PROJECT_PATH, '.env'), verbose=True)
+dotenv.load_dotenv(dotenv_path=os.path.join(PROJECT_PATH, '.env'))
 env = Environment()
 
 # Run entrypoint

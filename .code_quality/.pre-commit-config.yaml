@@ -5,7 +5,6 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: check-merge-conflict
-      - id: check-toml
       - id: debug-statements
 
   - repo: local
@@ -30,10 +29,9 @@ repos:
         language: system
         types: [python]
 
-      #- id: pytest
-      #  name: pytest
-      #  language: system
-      #  entry: pytest tests
-      #  types: [python]
-      #  pass_filenames: false
-
+      - id: pytest
+        name: pytest
+        language: system
+        entry: pytest tests
+        types: [python]
+        pass_filenames: false

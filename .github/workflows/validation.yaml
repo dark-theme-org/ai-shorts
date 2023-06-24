@@ -1,4 +1,4 @@
-name: AI Shorts - CI-CD Pipeline
+name: AI Shorts - Validation
 
 on:
 
@@ -9,13 +9,8 @@ on:
   push:
     branches:
       - develop
-      - main
 
 permissions: write-all
-
-env:
-
-  PROJECT_NAME: "ai-shorts"
 
 jobs:
 
@@ -31,18 +26,15 @@ jobs:
         host: github.com
         private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-  validate:
+  code_quality:
 
     runs-on: ubuntu-latest
-    env:
-      PYTHONPATH: ${{ github.workspace }}
     steps:
     - name: GitHub Actions Runner
       uses: actions/checkout@v3.3.0
-    - name: Setup Python Version
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+    - name: Set ./src as PYTHONPATH
+      run: |
+        echo "PYTHONPATH=${{ github.workspace }}/src" >> $GITHUB_ENV
     - name: Install Dependencies
       run: |
         pip install -r requirements-dev.txt
@@ -50,3 +42,6 @@ jobs:
       run: |
         pylint --rcfile .code_quality/.pylintrc src tests
         flake8 --config=.code_quality/.flake8 src tests
+    - name: Unit tests with Pytest
+      run: |
+        pytest tests
