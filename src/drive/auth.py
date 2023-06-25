@@ -15,6 +15,13 @@ logger = logger_config()
 # Create class for drive authentication
 
 
+# pylint: disable=unnecessary-pass
+class DriveAuthError(Exception):
+    """Class to raise on DriveAuth failure"""
+
+    pass
+
+
 class DriveAuth:
     """
     Create class for google drive authentication
@@ -101,8 +108,22 @@ class DriveAuth:
 
     def run(self):
         """Run all methods from DriveAuth in one call"""
-        # 1. Create json keyfile
-        self.create_json_keyfile()
-        # 2. Authenticate to google drive and return connection
-        drive_auth = self.authenticate()
-        return drive_auth
+        try:
+            # 1. Create json keyfile
+            logger.info(
+                f"[{__class__.__name__}] Creating '{self.filename}' json keyfile..."
+            )
+            self.create_json_keyfile()
+            # 2. Authenticate to google drive and return connection
+            logger.info(f"[{__class__.__name__}] Authenticating to Google Drive...")
+            drive_auth = self.authenticate()
+            logger.info(
+                f"[{__class__.__name__}] Succesfully executed '{__class__.__name__}' class!"
+            )
+            return drive_auth
+        except Exception as exc:
+            logger.error(
+                f"[{__class__.__name__}] Something went wrong while trying to execute"
+                f"'{__class__.__name__}' class"
+            )
+            raise DriveAuthError(f"[{__class__.__name__}] Pipeline failed!") from exc

@@ -14,6 +14,13 @@ logger = logger_config()
 # Creating class for downloading video from Google Drive
 
 
+# pylint: disable=unnecessary-pass
+class GetVideoError(Exception):
+    """Class to raise on GetVideo failure"""
+
+    pass
+
+
 class GetVideo:
     """
     Class to download video generated from Google Colab
@@ -64,23 +71,29 @@ class GetVideo:
         """Run method to download video from specified ID"""
         try:
             # Get content
+            logger.info(f"[{__class__.__name__}] Getting video id and its content...")
             request_ = self._drive_auth.files().get_media(fileId=self.video_id())
             file_name = (
                 self._drive_auth.files().get(fileId=self.video_id()).execute()['name']
+            )
+            logger.info(
+                f"[{__class__.__name__}] Succesfully get id and content from '{file_name}'!"
             )
             # Define path to save
             file_path = os.path.join(self.output_path, file_name)
             fh_ = io.FileIO(file_path, 'wb')
             # Download content locally
             downloader = MediaIoBaseDownload(fh_, request_)
+            logger.info(f"[{__class__.__name__}] Downloading .mp4 file...")
             done = False
             while not done:
                 _, done = downloader.next_chunk()
             logger.info(
-                f"[{__class__.__name__}] Succesfully get ID and download AI video content from '{file_name}'!"
+                f"[{__class__.__name__}] Succesfully downloaded '{file_name}' "
+                f"video and finished '{__class__.__name__}' execution!"
             )
         except Exception as exc:
             logger.error(
-                f"[{__class__.__name__}] Could not get last AI video ID and download content!\n{exc}"
+                f"[{__class__.__name__}] Could not get video ID and download content!"
             )
-            return None
+            raise GetVideoError(f"[{__class__.__name__}] Pipeline failed!") from exc
