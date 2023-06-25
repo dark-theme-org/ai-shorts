@@ -6,6 +6,9 @@ on:
     types:
       - opened
       - synchronize
+    branches-ignore:
+      - 'test/*'
+      - 'publish/*'
   push:
     branches:
       - develop

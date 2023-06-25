@@ -24,6 +24,20 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## 0.0.3/4-dev-2023-06-25
+
+### Added
+
+- Unittests for drive and utils modules;
+- New pre-commit hooks for more project security
+- Logic to set PYTHONPATH in README
+
+### Changes
+
+- Workflow only for Pull Requests (validation)
+
+### Fixed
+
 ## 0.0.2-dev-2023-06-13
 
 ### Added

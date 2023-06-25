@@ -137,3 +137,7 @@ terraform.tfvars
 
 # Build
 build/
+
+# Possible files from entrypoint
+*.mp4
+google_service_account.json

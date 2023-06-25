@@ -50,6 +50,12 @@ All the code functionallity uses [Python](https://www.python.org/) and the deplo
     pre-commit install --config .code_quality/.pre-commit-config.yaml
     ```
 
+  - Configure ./src folder as PYTHONPATH (bash example)
+
+    ```terminal
+    export PYTHONPATH="$PWD/src"
+    ```
+
 ## Folders
 
 - [ ] *.code_quality* <> Analyze your source code's quality and complexity, keeping your project's code simple, readable, and easier;
