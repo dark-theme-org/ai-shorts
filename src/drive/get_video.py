@@ -3,7 +3,7 @@ import io
 import os
 from googleapiclient.http import MediaIoBaseDownload
 
-from drive.auth import DriveAuth
+from utils.auth import APIAuth
 from utils.environment import Environment
 from utils.logger import logger_config
 
@@ -27,7 +27,7 @@ class GetVideo:
     and stored in personal drive
     """
 
-    def __init__(self, env: Environment, drive_auth: DriveAuth, output_path: str):
+    def __init__(self, env: Environment, drive_auth: APIAuth, output_path: str):
         self._env = env
         self._drive_auth = drive_auth
         self.output_path = output_path
@@ -67,7 +67,7 @@ class GetVideo:
         )
         return video
 
-    def download(self) -> None:
+    def download(self):
         """Run method to download video from specified ID"""
         try:
             # Get content
@@ -88,10 +88,12 @@ class GetVideo:
             done = False
             while not done:
                 _, done = downloader.next_chunk()
+            # Log result and return video filename
             logger.info(
                 f"[{__class__.__name__}] Succesfully downloaded '{file_name}' "
                 f"video and finished '{__class__.__name__}' execution!"
             )
+            return file_name
         except Exception as exc:
             logger.error(
                 f"[{__class__.__name__}] Could not get video ID and download content!"

@@ -5,11 +5,22 @@ import os
 class Environment:
     """
     Creating environment class with env variables
+
+    ...
+
+    ----------
+    Parameters
+    ----------
+    scope: str
+        Define scope for environment.
     """
+
+    def __init__(self, scope):
+        self.scope = scope
 
     def get_scope(self) -> str:
         """Getter to return project scope"""
-        return os.getenv("SCOPE").strip().lower()
+        return self.scope.strip().lower()
 
     def get_project_id(self) -> str:
         """Getter to return project_id secret env"""
@@ -30,3 +41,11 @@ class Environment:
     def get_main_folder_id(self) -> str:
         """Getter to return main_folder_id secret env"""
         return os.getenv("MAIN_FOLDER_ID")
+
+    def get_oauth_client_id(self) -> str:
+        """Getter to return oauth_client_id secret env"""
+        return os.getenv("OAUTH_CLIENT_ID")
+
+    def get_oauth_client_secret(self) -> str:
+        """Getter to return oauth_client_secret secret env"""
+        return os.getenv("OAUTH_CLIENT_SECRET")
