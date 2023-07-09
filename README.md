@@ -56,6 +56,10 @@ All the code functionallity uses [Python](https://www.python.org/) and the deplo
     export PYTHONPATH="$PWD/src"
     ```
 
+## How to run
+
+The file `src/main.py` contains a python script used as entrypoint for local running. You can run it as a script (e.g. `python src/main.py --scope=prod`). The `--scope=prod` is the environment to be deployed onto. It's an optional parameter which default value is `test`. This string can be anything, but only the word `prod` has a different effect, setting the uploaded video privacy as **public**. Everything else will share the video as **unlisted**.
+
 ## Folders
 
 - [ ] *.code_quality* <> Analyze your source code's quality and complexity, keeping your project's code simple, readable, and easier;
