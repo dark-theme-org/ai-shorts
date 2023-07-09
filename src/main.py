@@ -48,7 +48,6 @@ def run_entrypoint(scope):
     )
     # 4. Connect to Youtube API
     youtube = APIAuth(env, PROJECT_PATH, "youtube", args).run()
-
     # 5. Upload video to Youtube channel
     Upload(youtube, args).run()
 
