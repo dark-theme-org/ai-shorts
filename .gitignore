@@ -131,7 +131,7 @@ dmypy.json
 # Terraform
 *.out
 .terraform/
-.terraform.lock.hcl
+*.hcl
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
