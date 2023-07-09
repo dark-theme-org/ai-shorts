@@ -36,6 +36,7 @@ jobs:
     - name: GitHub Actions Runner
       uses: actions/checkout@v3.3.0
     - name: Validate Terraform
+      uses: hashicorp/setup-terraform@v1
       working-directory: ./terraform
       run: |
         terraform validate
