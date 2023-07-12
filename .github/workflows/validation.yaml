@@ -45,7 +45,6 @@ jobs:
     - name: Validate Terraform files
       working-directory: ./terraform
       run: |
-        terraform init -backend-config "key=production/${{ env.PROJECT_NAME }}/terraform.tfstate"
         terraform validate
     - name: Set ./src as PYTHONPATH
       run: |
