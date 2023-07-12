@@ -4,6 +4,8 @@ from argparse import Namespace
 import click
 import dotenv
 
+from aws.backup import backup
+from aws.connector import connector
 from drive.get_video import GetVideo
 from utils.auth import APIAuth
 from utils.environment import Environment
@@ -50,6 +52,9 @@ def run_entrypoint(scope):
     youtube = APIAuth(env, PROJECT_PATH, "youtube", args).run()
     # 5. Upload video to Youtube channel
     Upload(youtube, args).run()
+    # 6. Backup to AWS
+    aws_s3 = connector(env, "s3")
+    backup(env, aws_s3, PROJECT_PATH, video)
 
 
 if __name__ == "__main__":

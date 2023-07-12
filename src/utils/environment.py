@@ -31,6 +31,10 @@ class Environment:
         """Getter to return aws_secret_access_key secret env"""
         return os.getenv("AWS_SECRET_ACCESS_KEY")
 
+    def get_aws_region(self) -> str:
+        """Getter to return aws_region secret env"""
+        return os.getenv("AWS_REGION")
+
     def get_project_id(self) -> str:
         """Getter to return project_id secret env"""
         return os.getenv("GOOGLE_PROJECT")
