@@ -28,8 +28,23 @@ repos:
         name: trims trailing whitespace
         fail_fast: true
 
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.22
+    hooks:
+      - id: terraform-validate
+        name: terraform validate
+        files: ^terraform/
+        fail_fast: true
+
   - repo: local
     hooks:
+      - id: terraform-fmt
+        name: terraform format
+        entry: terraform fmt
+        language: system
+        files: terraform/.*\.tf$
+        fail_fast: true
+
       - id: black
         name: black
         entry: black src tests

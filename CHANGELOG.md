@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- Upload video content to Youtube channel
+- Terraform codes to create S3 bucket to store videos as backups
 ...
 
 ### Changes
