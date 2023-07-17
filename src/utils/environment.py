@@ -15,12 +15,25 @@ class Environment:
         Define scope for environment.
     """
 
-    def __init__(self, scope):
-        self.scope = scope
+    def __init__(self, scope: str):
+        self.scope = scope.strip().lower()
 
     def get_scope(self) -> str:
         """Getter to return project scope"""
-        return self.scope.strip().lower()
+        self.scope = "test" if self.scope not in ["test", "prod"] else self.scope
+        return self.scope
+
+    def get_aws_id(self) -> str:
+        """Getter to return aws_access_key_id secret env"""
+        return os.getenv("AWS_ACCESS_KEY_ID")
+
+    def get_aws_secret(self) -> str:
+        """Getter to return aws_secret_access_key secret env"""
+        return os.getenv("AWS_SECRET_ACCESS_KEY")
+
+    def get_aws_region(self) -> str:
+        """Getter to return aws_region secret env"""
+        return os.getenv("AWS_REGION")
 
     def get_project_id(self) -> str:
         """Getter to return project_id secret env"""

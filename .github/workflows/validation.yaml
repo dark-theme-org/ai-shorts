@@ -15,6 +15,11 @@ on:
 
 permissions: write-all
 
+env:
+
+  PROJECT_NAME: "ai-shorts"
+  AWS_REGION: "us-east-1"
+
 jobs:
 
   config:
@@ -35,6 +40,19 @@ jobs:
     steps:
     - name: GitHub Actions Runner
       uses: actions/checkout@v3.3.0
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+    - name: Validate Terraform files
+      working-directory: ./terraform
+      run: |
+        terraform init -backend-config "key=production/${{ env.PROJECT_NAME }}/terraform.tfstate"
+        terraform validate
     - name: Set ./src as PYTHONPATH
       run: |
         echo "PYTHONPATH=${{ github.workspace }}/src" >> $GITHUB_ENV
