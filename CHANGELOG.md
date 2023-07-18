@@ -24,12 +24,24 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## 0.0.6-dev-2023-07-17
+
+### Added
+
+- Logic to delete temp files created;
+- release.sh script.
+
+### Changes
+- How to Run and Motivation topic in README.
+
+### Fixed
+
 ## 0.0.5-dev-2023-07-17
 
 ### Added
 
-- Upload video content to Youtube channel
-- Terraform codes to create S3 bucket to store videos as backups
+- Upload video content to Youtube channel;
+- Terraform codes to create S3 bucket to store videos as backups.
 
 ### Changes
 
@@ -40,12 +52,12 @@ All notable changes to this project will be documented in this file. The format 
 ### Added
 
 - Unittests for drive and utils modules;
-- New pre-commit hooks for more project security
-- Logic to set PYTHONPATH in README
+- New pre-commit hooks for more project security;
+- Logic to set PYTHONPATH in README.
 
 ### Changes
 
-- Workflow only for Pull Requests (validation)
+- Workflow only for Pull Requests (validation).
 
 ### Fixed
 
@@ -53,12 +65,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- Code quality triggered
-- Development tools
+- Code quality triggered;
+- Development tools.
 
 ### Changes
 
-- Update markdowns, *workflow.yaml* and clean requirements.txt
+- Update markdowns, *workflow.yaml* and clean requirements.txt.
 
 ### Fixed
 
@@ -66,10 +78,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- First files to repository configuration (e.g. *.pylintrc*, *requirements.txt*, *workflow.yaml*)
+- First files to repository configuration (e.g. *.pylintrc*, *requirements.txt*, *workflow.yaml*).
 
 ### Changes
 
-- Add new files/folders to *.gitignore.*
+- Add new files/folders to *.gitignore*.
 
 ### Fixed
