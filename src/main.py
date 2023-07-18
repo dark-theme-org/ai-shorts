@@ -15,7 +15,7 @@ from youtube.upload import Upload
 # Declare some variables for this entrypoint
 
 PROJECT_PATH = os.getcwd()
-dotenv.load_dotenv(dotenv_path=os.path.join(PROJECT_PATH, '.env'))
+dotenv.load_dotenv(os.path.join(PROJECT_PATH, '.env'))
 
 
 # Create entrypoint runner for execution
@@ -55,6 +55,15 @@ def run_entrypoint(scope):
     # 6. Backup to AWS
     aws_s3 = connector(env, "s3")
     backup(env, aws_s3, PROJECT_PATH, video)
+    # 7. Drop temp files created
+    tmp_files = [
+        "client_secrets.json",
+        video,
+        "google_service_account.json",
+        "main.py-oauth2.json",
+    ]
+    for file in tmp_files:
+        os.remove(os.path.join(PROJECT_PATH, file))
 
 
 if __name__ == "__main__":
