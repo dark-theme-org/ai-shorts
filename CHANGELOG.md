@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-- First release: Full dev code to master
+- First release: Full dev code to main
 - Create backport github workflow
 
 ### Changes

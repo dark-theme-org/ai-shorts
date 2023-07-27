@@ -1,4 +1,4 @@
-name: Backport master to develop
+name: Backport main to develop
 
 on:
 
@@ -17,12 +17,12 @@ jobs:
     - name: GitHub Actions Runner
       uses: actions/checkout@v3.3.0
 
-    - name: Create PR to sync master-develop
+    - name: Create PR to sync main-develop
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ secrets.GH_TOKEN }}
         branch: develop
-        title: "[Backport] Sync master into develop at $(date +'%Y-%m-%d %H:%M:%S')"
+        title: "[Backport] Sync main into develop at $(date +'%Y-%m-%d %H:%M:%S')"
         reviewers: daiha98
         labels: automated pr
         draft: false
