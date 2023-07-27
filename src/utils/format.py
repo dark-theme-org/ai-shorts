@@ -25,7 +25,7 @@ def keywords() -> str:
     return "shorts,ai,stablediffusion,lofi"
 
 
-def title(file: str, keywords_=keywords()) -> str:
+def title(file: str, keywords_: str = keywords()) -> str:
     """
     Extract the relevant part from the video string as title.
 

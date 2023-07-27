@@ -1,8 +1,9 @@
 """Module to create logger to monitoring code steps"""
 import logging
+from typing import Any
 
 
-def logger_config():
+def logger_config() -> Any:
     """
     Configurate logger format for monitoring steps in DWR pipeline.
     """

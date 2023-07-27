@@ -24,6 +24,17 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## 0.0.7-dev-2023-07-26
+
+### Added
+
+- mypy and isort hooks in pre-commit and config files
+
+### Changes
+- Apply changes from new hooks
+
+### Fixed
+
 ## 0.0.6-dev-2023-07-17
 
 ### Added

@@ -2,10 +2,11 @@
 import sys
 import time
 from argparse import Namespace
+from typing import Any
+
+import httplib2
 from apiclient.errors import HttpError
 from apiclient.http import MediaFileUpload
-import httplib2
-
 from utils.auth import APIAuth
 from utils.logger import logger_config
 
@@ -16,7 +17,6 @@ logger = logger_config()
 # Creating class for uploading video to Youtube
 
 
-# pylint: disable=unnecessary-pass
 class UploadError(Exception):
     """Class to raise on Upload failure"""
 
@@ -34,7 +34,7 @@ class Upload:
         self.retries = 3
         self.retriable_exceptions = (httplib2.HttpLib2Error, IOError)
 
-    def resumable(self, insert_request, file: str):
+    def resumable(self, insert_request: Any, file: str) -> None:
         """
         Workflow to upload videos.
 
@@ -61,18 +61,18 @@ class Upload:
             try:
                 # Execute upload
                 logger.info(
-                    f"[{__class__.__name__}] Uploading file '{file}' to youtube channel..."
+                    f"[{self.__class__.__name__}] Uploading file '{file}' to youtube channel..."
                 )
                 _, response = insert_request.next_chunk()
                 # Check response (if successfull, print info, else show error)
                 if response is not None:
                     if "id" in response:
                         logger.info(
-                            f"[{__class__.__name__}] Video was successfully uploaded!"
+                            f"[{self.__class__.__name__}] Video was successfully uploaded!"
                         )
                     else:
                         logger.error(
-                            f"[{__class__.__name__}] Upload failed with an unexpected response: {response}"
+                            f"[{self.__class__.__name__}] Upload failed with an unexpected response: {response}"
                         )
             # Handle exceptions
             except HttpError as http_exc:
@@ -80,29 +80,29 @@ class Upload:
                     error_msg = f"A retriable HTTP error {http_exc.resp.status} occurred:\n{http_exc.content}"
                 else:
                     raise UploadError(
-                        f"[{__class__.__name__}] Pipeline failed!"
+                        f"[{self.__class__.__name__}] Pipeline failed!"
                     ) from http_exc
             except self.retriable_exceptions as ret_exc:
                 error_msg = f"A retriable error occurred: {ret_exc}"
             # Here, we create a retry logic to reattempt upload
             if error_msg is not None:
                 # Show error and break retry if exceed threshold
-                logger.error(f"[{__class__.__name__}] Error: '{error_msg}'.")
+                logger.error(f"[{self.__class__.__name__}] Error: '{error_msg}'.")
                 retry += 1
                 if retry > self.retries:
                     sys.exit(
-                        f"[{__class__.__name__}] No longer attempting to retry. \
+                        f"[{self.__class__.__name__}] No longer attempting to retry. \
 Exceeded error limit for '{self.retries}' retries!"
                     )
                 # Sleep cumulative 10 seconds and try again
                 sleep_seconds = 10 * (2**retry)
                 logger.debug(
-                    f"[{__class__.__name__}] Sleeping '{sleep_seconds}' seconds and \
+                    f"[{self.__class__.__name__}] Sleeping '{sleep_seconds}' seconds and \
 then retrying to upload video..."
                 )
                 time.sleep(sleep_seconds)
 
-    def initialize(self):
+    def initialize(self) -> None:
         """
         Function to properly execute request to upload.
         """
@@ -128,11 +128,11 @@ then retrying to upload video..."
         )
         self.resumable(insert_request, self.args.file)
 
-    def run(self):
+    def run(self) -> None:
         """Call all methods in just one function"""
         try:
             self.initialize()
         except HttpError as http_exc_:
             logger.error(
-                f"[{__class__.__name__}] An HTTP error {http_exc_.resp.status} occurred:\n{http_exc_.content}"
+                f"[{self.__class__.__name__}] An HTTP error {http_exc_.resp.status} occurred:\n{http_exc_.content}"
             )

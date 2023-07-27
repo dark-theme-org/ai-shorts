@@ -1,6 +1,6 @@
 """Module to test GetVideo class"""
-from unittest.mock import MagicMock
 import unittest
+from unittest.mock import MagicMock
 
 from drive.get_video import GetVideo
 

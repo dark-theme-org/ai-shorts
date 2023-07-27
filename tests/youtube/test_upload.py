@@ -1,9 +1,9 @@
 """Module to test Upload class"""
-from unittest.mock import MagicMock, patch
 import unittest
 from argparse import Namespace
-from apiclient.errors import HttpError
+from unittest.mock import MagicMock, patch
 
+from apiclient.errors import HttpError
 from youtube.upload import Upload, UploadError
 
 

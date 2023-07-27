@@ -65,4 +65,4 @@ jobs:
         flake8 --config=.code_quality/.flake8 src tests
     - name: Unit tests with Pytest
       run: |
-        pytest tests
+        pytest -c .code_quality/pytest.ini tests
