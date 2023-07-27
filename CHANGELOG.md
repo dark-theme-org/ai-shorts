@@ -24,6 +24,17 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## 0.1.0-2023-07-26
+
+### Added
+
+- First release: Full dev code to master
+- Create backport github workflow
+
+### Changes
+
+### Fixed
+
 ## 0.0.7-dev-2023-07-26
 
 ### Added

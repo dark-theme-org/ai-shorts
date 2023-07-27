@@ -7,8 +7,7 @@ on:
       - opened
       - synchronize
     branches-ignore:
-      - 'test/*'
-      - 'publish/*'
+      - 'release/*'
   push:
     branches:
       - develop
