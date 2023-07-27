@@ -1,15 +1,15 @@
 """Main module to run entrypoint to upload videos to youtube channel"""
 import os
 from argparse import Namespace
+
 import click
 import dotenv
-
 from aws.backup import backup
 from aws.connector import connector
 from drive.get_video import GetVideo
 from utils.auth import APIAuth
 from utils.environment import Environment
-from utils.format import privacy, keywords, title, description
+from utils.format import description, keywords, privacy, title
 from youtube.upload import Upload
 
 # Declare some variables for this entrypoint
@@ -28,7 +28,7 @@ dotenv.load_dotenv(os.path.join(PROJECT_PATH, '.env'))
     help="Environment for deployment. \
 Availables are 'test' and 'prod'.",
 )
-def run_entrypoint(scope):
+def run_entrypoint(scope: str) -> None:
     """Caller to run entrypoint"""
     env = Environment(scope)
     # 1. Authenticate to Google Drive

@@ -68,6 +68,21 @@ repos:
         types: [python]
         fail_fast: true
 
+      - id: isort
+        name: isort
+        entry: isort --settings .code_quality/.isort.cfg
+        language: system
+        types: [python]
+        fail_fast: true
+
+      - id: mypy
+        name: mypy
+        entry: mypy --config-file .code_quality/mypy.ini
+        language: system
+        types: [python]
+        exclude: (tests/)
+        fail_fast: true
+
       - id: pytest
         name: pytest
         language: system

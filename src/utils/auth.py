@@ -3,14 +3,14 @@ import json
 import os
 from argparse import Namespace
 from sys import argv
-from typing import Optional
-from apiclient.discovery import build
-from oauth2client.client import flow_from_clientsecrets
-from oauth2client.service_account import ServiceAccountCredentials
-from oauth2client.file import Storage
-from oauth2client.tools import run_flow
-from httplib2 import Http
+from typing import Any, Optional
 
+from apiclient.discovery import build
+from httplib2 import Http
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.file import Storage
+from oauth2client.service_account import ServiceAccountCredentials
+from oauth2client.tools import run_flow
 from utils.environment import Environment
 from utils.logger import logger_config
 
@@ -21,7 +21,6 @@ logger = logger_config()
 # Create class for drive authentication
 
 
-# pylint: disable=unnecessary-pass
 class APIAuthError(Exception):
     """Class to raise on APIAuth failure"""
 
@@ -56,7 +55,7 @@ class APIAuth:
         self.args = args
         self.script_file = argv[0]
 
-    def create_json_file(self):
+    def create_json_file(self) -> str:
         """
         Create the json file to authenticate
         python to access Youtube Data API.
@@ -102,16 +101,16 @@ class APIAuth:
             ) as file:
                 json.dump(json_, file)
             logger.info(
-                f"[{__class__.__name__}] Succesfully created '{filename}' output for '{self.api}' API!"
+                f"[{self.__class__.__name__}] Succesfully created '{filename}' output for '{self.api}' API!"
             )
-            return filename
+            return str(filename)
         except Exception as exc:
             logger.error(
-                f"[{__class__.__name__}] Could not create '{filename}' output for '{self.api}' API!"
+                f"[{self.__class__.__name__}] Could not create '{filename}' output for '{self.api}' API!"
             )
-            raise APIAuthError(f"[{__class__.__name__}] Pipeline failed!") from exc
+            raise APIAuthError(f"[{self.__class__.__name__}] Pipeline failed!") from exc
 
-    def service_account_conn(self, file: str):
+    def service_account_conn(self, file: str) -> Any:
         """Authenticate to Google Drive to access files with json keyfile"""
         try:
             credentials = ServiceAccountCredentials.from_json_keyfile_name(
@@ -121,16 +120,18 @@ class APIAuth:
             # Authorize with http connection and return results
             drive_ = build('drive', 'v3', http=credentials.authorize(Http()))
             logger.info(
-                f"[{__class__.__name__}] Succesfully authenticate to Google Drive: {drive_}"
+                f"[{self.__class__.__name__}] Succesfully authenticate to Google Drive: {drive_}"
             )
             return drive_
         except Exception as exc_:
             logger.error(
-                f"[{__class__.__name__}] Could not authenticate to Google Drive!"
+                f"[{self.__class__.__name__}] Could not authenticate to Google Drive!"
             )
-            raise APIAuthError(f"[{__class__.__name__}] Pipeline failed!") from exc_
+            raise APIAuthError(
+                f"[{self.__class__.__name__}] Pipeline failed!"
+            ) from exc_
 
-    def oauth_conn(self, file: str):
+    def oauth_conn(self, file: str) -> Any:
         """Authenticate to Youtube API with OAuth credentials."""
         try:
             # Authenticate configurations
@@ -147,36 +148,42 @@ class APIAuth:
             # Log results and return build connection with api
             youtube_ = build(self.api, "v3", http=credentials.authorize(Http()))
             logger.info(
-                f"[{__class__.__name__}] Succesfully authenticate to Youtube API: {youtube_}"
+                f"[{self.__class__.__name__}] Succesfully authenticate to Youtube API: {youtube_}"
             )
             return youtube_
         except Exception as exc_1:
             logger.error(
-                f"[{__class__.__name__}] Could not authenticate to Youtube API!"
+                f"[{self.__class__.__name__}] Could not authenticate to Youtube API!"
             )
-            raise APIAuthError(f"[{__class__.__name__}] Pipeline failed!") from exc_1
+            raise APIAuthError(
+                f"[{self.__class__.__name__}] Pipeline failed!"
+            ) from exc_1
 
-    def run(self):
+    def run(self) -> Any:
         """Run all methods from DriveAuth in one call"""
         try:
             # 1. Create json keyfile
             logger.info(
-                f"[{__class__.__name__}] Creating json file for '{self.api}' API..."
+                f"[{self.__class__.__name__}] Creating json file for '{self.api}' API..."
             )
             json_name = self.create_json_file()
             # 2. Authenticate to desire api and return connection
-            logger.info(f"[{__class__.__name__}] Authenticating to '{self.api}' API...")
+            logger.info(
+                f"[{self.__class__.__name__}] Authenticating to '{self.api}' API..."
+            )
             if self.api == "drive":
                 auth_ = self.service_account_conn(json_name)
             else:
                 auth_ = self.oauth_conn(json_name)
             logger.info(
-                f"[{__class__.__name__}] Succesfully executed '{__class__.__name__}' class!"
+                f"[{self.__class__.__name__}] Succesfully executed '{self.__class__.__name__}' class!"
             )
             return auth_
         except Exception as exc_2:
             logger.error(
-                f"[{__class__.__name__}] Something went wrong while trying to execute"
-                f"'{__class__.__name__}' class"
+                f"[{self.__class__.__name__}] Something went wrong while trying to execute"
+                f"'{self.__class__.__name__}' class"
             )
-            raise APIAuthError(f"[{__class__.__name__}] Pipeline failed!") from exc_2
+            raise APIAuthError(
+                f"[{self.__class__.__name__}] Pipeline failed!"
+            ) from exc_2

@@ -1,7 +1,7 @@
 """Module to test DriveAuth class"""
-from unittest.mock import patch, MagicMock
 import os
 import unittest
+from unittest.mock import MagicMock, patch
 
 from utils.auth import APIAuth, APIAuthError
 

@@ -1,5 +1,6 @@
 """Module to upload video file to AWS S3, used as backup"""
 import os
+from typing import Any
 
 from aws.error import AWSRaiseError
 from utils.environment import Environment
@@ -12,7 +13,7 @@ logger = logger_config()
 # Create 'aws_connector' function
 
 
-def backup(env: Environment, conn, path: str, file: str) -> None:
+def backup(env: Environment, conn: Any, path: str, file: str) -> None:
     """
     Uploading video file to AWS S3, used to
     store backup from video resulted.

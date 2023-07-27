@@ -1,6 +1,7 @@
 """Module to establish connection to AWS account"""
-import boto3
+from typing import Any
 
+import boto3
 from aws.error import AWSRaiseError
 from utils.environment import Environment
 from utils.logger import logger_config
@@ -12,7 +13,7 @@ logger = logger_config()
 # Create 'connector' function
 
 
-def connector(env: Environment, service: str):
+def connector(env: Environment, service: str) -> Any:
     """
     Establish connection to AWS account,
     based on programmatic credentials stored in
