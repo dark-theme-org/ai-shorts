@@ -1,0 +1,91 @@
+repos:
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    rev: v4.4.0
+    hooks:
+      - id: check-merge-conflict
+        name: check merge conflict
+        fail_fast: true
+
+      - id: check-yaml
+        name: check yaml syntax
+        fail_fast: true
+
+      - id: debug-statements
+        name: check debugger
+        fail_fast: true
+
+      - id: name-tests-test
+        name: check tests format
+        args: [--pytest-test-first]
+        fail_fast: true
+
+      - id: requirements-txt-fixer
+        name: check requirements txt files format
+        fail_fast: true
+
+      - id: trailing-whitespace
+        name: trims trailing whitespace
+        fail_fast: true
+
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.22
+    hooks:
+      - id: terraform-validate
+        name: terraform validate
+        files: ^terraform/
+        fail_fast: true
+
+  - repo: local
+    hooks:
+      - id: terraform-fmt
+        name: terraform format
+        entry: terraform fmt
+        language: system
+        files: terraform/.*\.tf$
+        fail_fast: true
+
+      - id: black
+        name: black
+        entry: black src tests
+        language: system
+        types: [python]
+        args: [--skip-string-normalization]
+        exclude: (notebooks/)
+        fail_fast: true
+
+      - id: flake8
+        name: flake8
+        entry: flake8 --config=.code_quality/.flake8 src tests
+        language: system
+        types: [python]
+        fail_fast: true
+
+      - id: pylint
+        name: pylint
+        entry: pylint --rcfile .code_quality/.pylintrc src tests
+        language: system
+        types: [python]
+        fail_fast: true
+
+      - id: isort
+        name: isort
+        entry: isort --settings .code_quality/.isort.cfg
+        language: system
+        types: [python]
+        fail_fast: true
+
+      - id: mypy
+        name: mypy
+        entry: mypy --config-file .code_quality/mypy.ini
+        language: system
+        types: [python]
+        exclude: (tests/)
+        fail_fast: true
+
+      - id: pytest
+        name: pytest
+        language: system
+        entry: pytest -c .code_quality/pytest.ini tests
+        types: [python]
+        pass_filenames: false

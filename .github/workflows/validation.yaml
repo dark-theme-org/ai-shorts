@@ -1,0 +1,67 @@
+name: AI Shorts - Validation
+
+on:
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches-ignore:
+      - 'release/*'
+  push:
+    branches:
+      - develop
+
+permissions: write-all
+
+env:
+
+  PROJECT_NAME: "ai-shorts"
+  AWS_REGION: "us-east-1"
+
+jobs:
+
+  config:
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: GitHub Actions Runner
+      uses: actions/checkout@v3.3.0
+    - name: Setup SSH
+      uses: MrSquaare/ssh-setup-action@v2
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  code_quality:
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: GitHub Actions Runner
+      uses: actions/checkout@v3.3.0
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+    - name: Validate Terraform files
+      working-directory: ./terraform
+      run: |
+        terraform init -backend-config "key=production/${{ env.PROJECT_NAME }}/terraform.tfstate"
+        terraform validate
+    - name: Set ./src as PYTHONPATH
+      run: |
+        echo "PYTHONPATH=${{ github.workspace }}/src" >> $GITHUB_ENV
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements-dev.txt
+    - name: Lint with Pylint/Flake8
+      run: |
+        pylint --rcfile .code_quality/.pylintrc src tests
+        flake8 --config=.code_quality/.flake8 src tests
+    - name: Unit tests with Pytest
+      run: |
+        pytest -c .code_quality/pytest.ini tests
