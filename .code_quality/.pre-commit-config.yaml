@@ -71,6 +71,6 @@ repos:
       - id: pytest
         name: pytest
         language: system
-        entry: pytest tests
+        entry: pytest -c .code_quality/pytest.ini tests
         types: [python]
         pass_filenames: false
