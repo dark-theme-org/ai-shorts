@@ -17,15 +17,25 @@ All notable changes to this project will be documented in this file. The format 
 ### Changes
 
 ...
-- Remove pip install requirements inside release.sh
 
 ### Fixed
 
 ...
-- Erase characters to avoid reach limit in title
-- Add PYTHONPATH to pytest hook in pre-commit
 
 ---
+
+## 0.1.1-release-2023-08-02
+
+### Added
+
+### Changes
+
+- Remove pip install requirements inside release.sh
+
+### Fixed
+
+- Erase characters to avoid reach limit in title
+- Add PYTHONPATH to pytest hook in pre-commit
 
 ## 0.1.0-release-2023-07-26
 
