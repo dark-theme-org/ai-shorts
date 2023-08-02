@@ -22,7 +22,7 @@ def privacy(env: Environment) -> str:
 
 def keywords() -> str:
     """Return keywords separeted by comma in a single string"""
-    return "shorts,ai,stablediffusion,lofi"
+    return "shorts,ai,lofi"
 
 
 def title(file: str, keywords_: str = keywords()) -> str:
@@ -51,9 +51,7 @@ def title(file: str, keywords_: str = keywords()) -> str:
     expressions = ["AWESOME", "FANTASTIC", "FASCINATING", "INCREDIBLE", "OMG", "WOW"]
     random_ = choice(expressions)
     hashtags = ' '.join(['#' + word for word in keywords_.split(',')])
-    final_title = (
-        f"{random_}!!! {video_str} created by Stable Diffusion AI model {hashtags}"
-    )
+    final_title = f"{random_}! {video_str} created by Stable Diffusion AI {hashtags}"
     # Log and return value
     logger.debug(f"[format_title] The 'title' in shorts will be '{final_title}'.")
     return final_title
