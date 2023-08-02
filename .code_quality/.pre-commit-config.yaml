@@ -86,6 +86,6 @@ repos:
       - id: pytest
         name: pytest
         language: system
-        entry: pytest -c .code_quality/pytest.ini tests
+        entry: bash -c 'export PYTHONPATH="$PWD/src" && pytest -c .code_quality/pytest.ini tests'
         types: [python]
         pass_filenames: false
