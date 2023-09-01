@@ -44,7 +44,7 @@ def run_entrypoint(scope: str) -> None:
         file=video,
         title=title(video),
         description=description(video),
-        category="22",
+        category="28",  # Science & Technology
         keywords=keywords(),
         privacyStatus=privacy(env),
     )
