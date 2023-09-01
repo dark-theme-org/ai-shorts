@@ -11,6 +11,7 @@ from utils.auth import APIAuth
 from utils.environment import Environment
 from utils.format import description, keywords, privacy, title
 from youtube.upload import Upload
+from tempfile import TemporaryDirectory
 
 # Declare some variables for this entrypoint
 
@@ -31,39 +32,32 @@ Availables are 'test' and 'prod'.",
 def run_entrypoint(scope: str) -> None:
     """Caller to run entrypoint"""
     env = Environment(scope)
-    # 1. Authenticate to Google Drive
-    drive = APIAuth(env, PROJECT_PATH, "drive").run()
-    # 2. Download video
-    video = GetVideo(env, drive, PROJECT_PATH).download()
-    # 3. Set of arguments
-    args = Namespace(
-        auth_host_name="localhost",
-        noauth_local_webserver=False,
-        auth_host_port=[8080, 8090],
-        logging_level="ERROR",
-        file=video,
-        title=title(video),
-        description=description(video),
-        category="28",  # Science & Technology
-        keywords=keywords(),
-        privacyStatus=privacy(env),
-    )
-    # 4. Connect to Youtube API
-    youtube = APIAuth(env, PROJECT_PATH, "youtube", args).run()
-    # 5. Upload video to Youtube channel
-    Upload(youtube, args).run()
-    # 6. Backup to AWS
-    aws_s3 = connector(env, "s3")
-    backup(env, aws_s3, PROJECT_PATH, video)
-    # 7. Drop temp files created
-    tmp_files = [
-        "client_secrets.json",
-        video,
-        "google_service_account.json",
-        "main.py-oauth2.json",
-    ]
-    for file in tmp_files:
-        os.remove(os.path.join(PROJECT_PATH, file))
+    # Drop temp files created when finishes or if crashes
+    with TemporaryDirectory() as temp_dir:
+        # 1. Authenticate to Google Drive
+        drive = APIAuth(env, temp_dir, "drive").run()
+        # 2. Download video
+        video = GetVideo(env, drive, temp_dir).download()
+        # 3. Set of arguments
+        args = Namespace(
+            auth_host_name="localhost",
+            noauth_local_webserver=False,
+            auth_host_port=[8080, 8090],
+            logging_level="ERROR",
+            file=video,
+            title=title(video),
+            description=description(video),
+            category="28",  # Science & Technology
+            keywords=keywords(),
+            privacyStatus=privacy(env),
+        )
+        # 4. Connect to Youtube API
+        youtube = APIAuth(env, temp_dir, "youtube", args).run()
+        # 5. Upload video to Youtube channel
+        Upload(youtube, args).run()
+        # 6. Backup to AWS
+        aws_s3 = connector(env, "s3")
+        backup(env, aws_s3, temp_dir, video)
 
 
 if __name__ == "__main__":
