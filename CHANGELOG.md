@@ -24,6 +24,18 @@ All notable changes to this project will be documented in this file. The format 
 
 ---
 
+## 0.1.2-release-2023-09-01
+
+### Added
+
+- 'madeForKids' flag on body
+
+### Changes
+
+### Fixed
+
+- CategoryId from '22' (People & Blogs) to '28' (Science & Technology)
+
 ## 0.1.1-release-2023-08-02
 
 ### Added
