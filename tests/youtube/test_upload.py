@@ -20,8 +20,9 @@ class TestUpload(unittest.TestCase):
             title="Test Video",
             description="This is a test video",
             keywords="test,unit test",
-            category="22",
+            category="28",
             privacyStatus="private",
+            madeForKids=False,
             file=self.file,
         )
         self.upload = Upload(self.youtube_auth, self.args)
@@ -78,9 +79,9 @@ class TestUpload(unittest.TestCase):
                     "title": "Test Video",
                     "description": "This is a test video",
                     "tags": ["test", "unit test"],
-                    "categoryId": "22",
+                    "categoryId": "28",
                 },
-                "status": {"privacyStatus": "private"},
+                "status": {"privacyStatus": "private", "madeForKids": False},
             },
             media_body=media_body_mock,
         )

@@ -44,9 +44,10 @@ def run_entrypoint(scope: str) -> None:
         file=video,
         title=title(video),
         description=description(video),
-        category="22",
+        category="28",  # Science & Technology
         keywords=keywords(),
         privacyStatus=privacy(env),
+        madeForKids=False,
     )
     # 4. Connect to Youtube API
     youtube = APIAuth(env, PROJECT_PATH, "youtube", args).run()

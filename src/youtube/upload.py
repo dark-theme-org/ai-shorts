@@ -118,7 +118,10 @@ then retrying to upload video..."
                 "tags": tags,
                 "categoryId": self.args.category,
             },
-            "status": {"privacyStatus": self.args.privacyStatus},
+            "status": {
+                "privacyStatus": self.args.privacyStatus,
+                "madeForKids": self.args.madeForKids,
+            },
         }
         # Call the API's videos.insert method to create and upload the video.
         insert_request = self.youtube_auth.videos().insert(
