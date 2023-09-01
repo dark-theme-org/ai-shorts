@@ -22,7 +22,6 @@ class TestUpload(unittest.TestCase):
             keywords="test,unit test",
             category="28",
             privacyStatus="private",
-            madeForKids=False,
             file=self.file,
         )
         self.upload = Upload(self.youtube_auth, self.args)
